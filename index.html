@@ -40,38 +40,20 @@ tailwind.config = {
     .caret { animation:none; }
     *, *::before, *::after { transition-duration:.01ms !important; }
   }
+  .inp { width:100%; border:1px solid #E6E8F2; background:#fff; border-radius:.875rem; padding:.75rem 1rem; font-size:.95rem; transition:border-color .2s, box-shadow .2s; }
+  .inp:focus { outline:none; border-color:#4F46E5; box-shadow:0 0 0 4px rgba(79,70,229,.12); }
+  .inp.bad { border-color:#DC2626; }
+  .err { min-height:1.25rem; margin-top:.25rem; font-size:.8rem; color:#DC2626; }
+  .lbl { display:block; margin-bottom:.375rem; font-size:.875rem; font-weight:600; }
 </style>
 </head>
 <body class="font-sans antialiased">
 
 <!-- NAV -->
 <header class="sticky top-0 z-50 border-b border-mist/70 bg-paper/80 backdrop-blur-xl">
-  <nav class="mx-auto flex h-16 max-w-6xl items-center justify-between px-5" aria-label="Principal">
-    <a href="#" class="flex items-center gap-2 font-display text-xl font-bold tracking-tight">
-      <span class="grid h-8 w-8 place-items-center rounded-xl bg-gradient-to-br from-iris to-violet2 text-white"><i data-lucide="sparkles" class="h-4 w-4"></i></span>
-      Lumen
-    </a>
-    <ul class="hidden items-center gap-8 text-sm font-medium text-ink/70 md:flex">
-      <li><a class="hover:text-ink transition-colors" href="#recursos">Recursos</a></li>
-      <li><a class="hover:text-ink transition-colors" href="#como-funciona">Como funciona</a></li>
-      <li><a class="hover:text-ink transition-colors" href="#precos">Preços</a></li>
-      <li><a class="hover:text-ink transition-colors" href="#depoimentos">Clientes</a></li>
-      <li><a class="hover:text-ink transition-colors" href="#faq">FAQ</a></li>
-    </ul>
-    <div class="flex items-center gap-3">
-      <a href="#precos" class="btn hidden rounded-full bg-ink px-5 py-2 text-sm font-semibold text-white hover:bg-iris sm:inline-block">Começar grátis</a>
-      <button id="menuBtn" class="grid h-10 w-10 place-items-center rounded-xl border border-mist bg-white md:hidden" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobileMenu"><i data-lucide="menu" class="h-5 w-5"></i></button>
-    </div>
-  </nav>
-  <div id="mobileMenu" class="hidden border-t border-mist bg-paper px-5 pb-5 md:hidden">
-    <ul class="flex flex-col py-2 text-base font-medium">
-      <li><a class="block py-3" href="#recursos">Recursos</a></li>
-      <li><a class="block py-3" href="#como-funciona">Como funciona</a></li>
-      <li><a class="block py-3" href="#precos">Preços</a></li>
-      <li><a class="block py-3" href="#depoimentos">Clientes</a></li>
-      <li><a class="block py-3" href="#faq">FAQ</a></li>
-    </ul>
-    <a href="#precos" class="btn block rounded-full bg-ink px-5 py-3 text-center text-sm font-semibold text-white">Começar grátis</a>
+  <div class="mx-auto flex h-16 max-w-6xl items-center justify-between px-5">
+    <a href="#" class="flex items-center gap-2 font-display text-xl font-bold tracking-tight"><span class="grid h-8 w-8 place-items-center rounded-xl bg-gradient-to-br from-iris to-violet2 text-white"><i data-lucide="sparkles" class="h-4 w-4"></i></span>Lumen</a>
+    <a href="#" data-checkout class="btn rounded-full bg-ink px-5 py-2 text-sm font-semibold text-white hover:bg-iris">Começar agora</a>
   </div>
 </header>
 
@@ -85,10 +67,10 @@ tailwind.config = {
     <h1 class="mx-auto mt-7 max-w-3xl font-display text-5xl font-extrabold leading-[1.02] tracking-tight sm:text-7xl">Menos reuniões sobre o trabalho. Mais trabalho.</h1>
     <p class="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-ink/65">O Lumen transforma reuniões, mensagens e documentos em tarefas, resumos e decisões. Ninguém precisa anotar nada.</p>
     <div class="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
-      <a href="#precos" class="btn w-full rounded-full bg-iris px-7 py-3.5 text-base font-semibold text-white shadow-lg shadow-iris/30 hover:bg-iris-deep sm:w-auto">Começar grátis</a>
+      <a href="#" data-checkout class="btn w-full rounded-full bg-iris px-7 py-3.5 text-base font-semibold text-white shadow-lg shadow-iris/30 hover:bg-iris-deep sm:w-auto">Começar agora</a>
       <a href="#como-funciona" class="btn inline-flex w-full items-center justify-center gap-2 rounded-full border border-mist bg-white px-7 py-3.5 text-base font-semibold hover:border-iris/40 sm:w-auto"><i data-lucide="play-circle" class="h-5 w-5 text-iris"></i> Ver como funciona</a>
     </div>
-    <p class="mt-4 text-sm text-ink/50">Sem cartão de crédito. Pronto em 2 minutos.</p>
+    <p class="mt-4 text-sm text-ink/50">Pronto em 2 minutos. Cancele quando quiser.</p>
 
     <!-- Mockup -->
     <div class="relative mx-auto mt-16 max-w-4xl text-left">
@@ -211,25 +193,13 @@ tailwind.config = {
 <section id="precos" class="mx-auto max-w-6xl scroll-mt-20 px-5 py-24">
   <div class="mx-auto max-w-2xl text-center">
     <h2 class="font-display text-4xl font-extrabold tracking-tight sm:text-5xl">Preço simples, por pessoa</h2>
-    <p class="mt-4 text-lg text-ink/60">Comece grátis e evolua quando o time pedir mais.</p>
+    <p class="mt-4 text-lg text-ink/60">Escolha o plano ideal e comece hoje mesmo.</p>
     <div class="mt-8 inline-flex rounded-full border border-mist bg-white p-1 text-sm font-semibold" role="group" aria-label="Período de cobrança">
       <button id="btnMonthly" class="rounded-full bg-ink px-5 py-2 text-white transition-colors" aria-pressed="true">Mensal</button>
       <button id="btnYearly" class="rounded-full px-5 py-2 text-ink/60 transition-colors" aria-pressed="false">Anual <span class="ml-1 rounded-full bg-emerald-100 px-2 py-0.5 text-xs text-emerald-700">-20%</span></button>
     </div>
   </div>
-  <div class="mt-12 grid items-stretch gap-5 md:grid-cols-3">
-    <article class="card flex flex-col p-8">
-      <h3 class="font-display text-xl font-bold">Essencial</h3>
-      <p class="mt-1 text-sm text-ink/55">Para quem quer testar sozinho.</p>
-      <p class="mt-6 font-display text-5xl font-extrabold">R$ 0</p>
-      <p class="text-sm text-ink/50">para sempre</p>
-      <ul class="mt-6 flex-1 space-y-3 text-sm text-ink/75">
-        <li class="flex gap-2"><i data-lucide="check" class="mt-0.5 h-4 w-4 shrink-0 text-iris"></i> 5 reuniões resumidas por mês</li>
-        <li class="flex gap-2"><i data-lucide="check" class="mt-0.5 h-4 w-4 shrink-0 text-iris"></i> Tarefas e lembretes básicos</li>
-        <li class="flex gap-2"><i data-lucide="check" class="mt-0.5 h-4 w-4 shrink-0 text-iris"></i> 2 integrações</li>
-      </ul>
-      <a href="#" class="btn mt-8 rounded-full border border-mist py-3 text-center text-sm font-semibold hover:border-iris/40">Começar grátis</a>
-    </article>
+  <div class="mx-auto mt-12 grid max-w-3xl items-stretch gap-5 md:grid-cols-2">
     <article class="relative flex flex-col rounded-3xl bg-ink p-8 text-white shadow-2xl shadow-iris/25 md:-my-4 md:py-12" style="background-image:radial-gradient(80% 50% at 50% 0%,rgba(99,102,241,.45),transparent 70%)">
       <span class="absolute right-6 top-6 rounded-full bg-white/15 px-3 py-1 text-xs font-semibold">Mais popular</span>
       <h3 class="font-display text-xl font-bold">Time</h3>
@@ -242,7 +212,7 @@ tailwind.config = {
         <li class="flex gap-2"><i data-lucide="check" class="mt-0.5 h-4 w-4 shrink-0 text-violet2"></i> Mais de 40 integrações</li>
         <li class="flex gap-2"><i data-lucide="check" class="mt-0.5 h-4 w-4 shrink-0 text-violet2"></i> Suporte por chat em 4 horas</li>
       </ul>
-      <a href="#" class="btn mt-8 rounded-full bg-white py-3 text-center text-sm font-semibold text-ink hover:bg-iris-soft">Testar 14 dias grátis</a>
+      <a href="#" data-checkout data-plan="time" class="btn mt-8 rounded-full bg-white py-3 text-center text-sm font-semibold text-ink hover:bg-iris-soft">Assinar o plano Time</a>
     </article>
     <article class="card flex flex-col p-8">
       <h3 class="font-display text-xl font-bold">Empresa</h3>
@@ -255,7 +225,7 @@ tailwind.config = {
         <li class="flex gap-2"><i data-lucide="check" class="mt-0.5 h-4 w-4 shrink-0 text-iris"></i> Dados armazenados no Brasil</li>
         <li class="flex gap-2"><i data-lucide="check" class="mt-0.5 h-4 w-4 shrink-0 text-iris"></i> Gerente de conta dedicado</li>
       </ul>
-      <a href="#" class="btn mt-8 rounded-full border border-mist py-3 text-center text-sm font-semibold hover:border-iris/40">Falar com vendas</a>
+      <a href="#" data-checkout data-plan="empresa" class="btn mt-8 rounded-full border border-mist py-3 text-center text-sm font-semibold hover:border-iris/40">Assinar o plano Empresa</a>
     </article>
   </div>
 </section>
@@ -305,8 +275,8 @@ tailwind.config = {
       <div class="faq-body"><div class="overflow-hidden"><p class="px-6 pb-6 text-ink/65">Pode. Nos planos mensais, o cancelamento vale a partir do próximo ciclo. Nos anuais, devolvemos o valor proporcional em até 30 dias.</p></div></div>
     </div>
     <div class="faq-item card !rounded-2xl">
-      <button class="faq-btn flex w-full items-center justify-between gap-4 p-6 text-left font-semibold" aria-expanded="false">Como funciona o teste de 14 dias?<i data-lucide="plus" class="faq-icon h-5 w-5 shrink-0 text-iris"></i></button>
-      <div class="faq-body"><div class="overflow-hidden"><p class="px-6 pb-6 text-ink/65">Você usa o plano Time completo sem informar cartão. Ao fim do período, escolhe um plano ou continua no Essencial, sem perder nada.</p></div></div>
+      <button class="faq-btn flex w-full items-center justify-between gap-4 p-6 text-left font-semibold" aria-expanded="false">Existe garantia de reembolso?<i data-lucide="plus" class="faq-icon h-5 w-5 shrink-0 text-iris"></i></button>
+      <div class="faq-body"><div class="overflow-hidden"><p class="px-6 pb-6 text-ink/65">Sim. Se o Lumen não fizer sentido para o seu time, devolvemos o valor em até 7 dias após a compra.</p></div></div>
     </div>
   </div>
 </section>
@@ -317,7 +287,7 @@ tailwind.config = {
     <h2 class="mx-auto max-w-2xl font-display text-4xl font-extrabold leading-tight tracking-tight sm:text-5xl">Sua próxima reunião pode terminar com tudo anotado</h2>
     <p class="mx-auto mt-4 max-w-lg text-white/70">Conecte seu calendário e veja o primeiro resumo ainda hoje.</p>
     <div class="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
-      <a href="#precos" class="btn w-full rounded-full bg-white px-8 py-3.5 font-semibold text-ink hover:bg-iris-soft sm:w-auto">Começar grátis</a>
+      <a href="#" data-checkout class="btn w-full rounded-full bg-white px-8 py-3.5 font-semibold text-ink hover:bg-iris-soft sm:w-auto">Começar agora</a>
       <a href="#faq" class="btn w-full rounded-full border border-white/25 px-8 py-3.5 font-semibold hover:bg-white/10 sm:w-auto">Tirar dúvidas</a>
     </div>
   </div>
@@ -326,51 +296,85 @@ tailwind.config = {
 
 <!-- FOOTER -->
 <footer class="border-t border-mist bg-white">
-  <div class="mx-auto max-w-6xl px-5 py-16">
-    <div class="grid gap-12 lg:grid-cols-6">
-      <div class="lg:col-span-2">
-        <a href="#" class="flex items-center gap-2 font-display text-xl font-bold"><span class="grid h-8 w-8 place-items-center rounded-xl bg-gradient-to-br from-iris to-violet2 text-white"><i data-lucide="sparkles" class="h-4 w-4"></i></span>Lumen</a>
-        <p class="mt-4 max-w-xs text-sm text-ink/60">Receba dicas de produtividade para times, uma vez por mês.</p>
-        <form id="newsletter" class="mt-5 flex max-w-sm gap-2" novalidate>
-          <label for="email" class="sr-only">Seu e-mail</label>
-          <input id="email" type="email" required placeholder="voce@empresa.com" class="min-w-0 flex-1 rounded-full border border-mist bg-paper px-4 py-2.5 text-sm placeholder:text-ink/40 focus:border-iris focus:outline-none">
-          <button class="btn rounded-full bg-ink px-5 py-2.5 text-sm font-semibold text-white hover:bg-iris">Assinar</button>
-        </form>
-        <p id="newsMsg" class="mt-2 min-h-5 text-sm" role="status"></p>
-      </div>
-      <nav class="grid grid-cols-2 gap-8 text-sm sm:grid-cols-3 lg:col-span-4" aria-label="Rodapé">
-        <div><h3 class="font-semibold">Produto</h3><ul class="mt-4 space-y-3 text-ink/60"><li><a class="hover:text-ink" href="#recursos">Recursos</a></li><li><a class="hover:text-ink" href="#precos">Preços</a></li><li><a class="hover:text-ink" href="#">Integrações</a></li><li><a class="hover:text-ink" href="#">Novidades</a></li></ul></div>
-        <div><h3 class="font-semibold">Empresa</h3><ul class="mt-4 space-y-3 text-ink/60"><li><a class="hover:text-ink" href="#">Sobre nós</a></li><li><a class="hover:text-ink" href="#">Carreiras</a></li><li><a class="hover:text-ink" href="#">Blog</a></li><li><a class="hover:text-ink" href="#">Contato</a></li></ul></div>
-        <div><h3 class="font-semibold">Legal</h3><ul class="mt-4 space-y-3 text-ink/60"><li><a class="hover:text-ink" href="#">Privacidade</a></li><li><a class="hover:text-ink" href="#">Termos de uso</a></li><li><a class="hover:text-ink" href="#">Segurança</a></li><li><a class="hover:text-ink" href="#">LGPD</a></li></ul></div>
-      </nav>
-    </div>
-    <div class="mt-14 flex flex-col items-center justify-between gap-4 border-t border-mist pt-8 text-sm text-ink/50 sm:flex-row">
-      <p>© <span id="year">2026</span> Lumen Tecnologia Ltda. Todos os direitos reservados.</p>
-      <div class="flex gap-4">
-        <a href="#" aria-label="LinkedIn" class="hover:text-iris"><i data-lucide="linkedin" class="h-5 w-5"></i></a>
-        <a href="#" aria-label="Twitter" class="hover:text-iris"><i data-lucide="twitter" class="h-5 w-5"></i></a>
-        <a href="#" aria-label="GitHub" class="hover:text-iris"><i data-lucide="github" class="h-5 w-5"></i></a>
-        <a href="#" aria-label="YouTube" class="hover:text-iris"><i data-lucide="youtube" class="h-5 w-5"></i></a>
-      </div>
-    </div>
+  <div class="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-5 py-8 text-sm text-ink/50 sm:flex-row">
+    <span class="flex items-center gap-2 font-display text-base font-bold text-ink"><span class="grid h-8 w-8 place-items-center rounded-xl bg-gradient-to-br from-iris to-violet2 text-white"><i data-lucide="sparkles" class="h-4 w-4"></i></span>Lumen</span>
+    <p>© <span id="year">2026</span> Lumen Tecnologia Ltda.</p>
+    <nav class="flex gap-5" aria-label="Legal"><a href="#" class="hover:text-ink">Termos</a><a href="#" class="hover:text-ink">Privacidade</a></nav>
   </div>
 </footer>
+
+
+<!-- CHECKOUT -->
+<div id="checkout" class="fixed inset-0 z-[60] hidden overflow-y-auto bg-paper" role="dialog" aria-modal="true" aria-labelledby="coTitle">
+  <div class="mx-auto max-w-5xl px-5 pb-16">
+    <div class="flex h-16 items-center justify-between">
+      <span class="flex items-center gap-2 font-display text-xl font-bold"><span class="grid h-8 w-8 place-items-center rounded-xl bg-gradient-to-br from-iris to-violet2 text-white"><i data-lucide="sparkles" class="h-4 w-4"></i></span>Lumen</span>
+      <button type="button" id="coClose" class="inline-flex items-center gap-2 rounded-full border border-mist bg-white px-4 py-2 text-sm font-semibold hover:border-iris/40"><i data-lucide="arrow-left" class="h-4 w-4"></i> Voltar</button>
+    </div>
+    <h2 id="coTitle" class="mt-6 font-display text-3xl font-extrabold tracking-tight sm:text-4xl">Finalizar assinatura</h2>
+    <form id="coForm" novalidate class="mt-8 grid gap-8 lg:grid-cols-5">
+      <div class="space-y-6 lg:col-span-3">
+        <section class="rounded-2xl border border-mist bg-white p-6">
+          <h3 class="font-display text-lg font-bold">Seus dados</h3>
+          <div class="mt-4 space-y-3">
+            <div><label class="lbl" for="nome">Nome completo</label><input id="nome" class="inp" autocomplete="name" placeholder="Maria da Silva"><p class="err" data-for="nome"></p></div>
+            <div><label class="lbl" for="email">E-mail</label><input id="email" type="email" class="inp" autocomplete="email" placeholder="voce@empresa.com"><p class="err" data-for="email"></p></div>
+            <div><label class="lbl" for="cpf">CPF</label><input id="cpf" class="inp" inputmode="numeric" placeholder="000.000.000-00"><p class="err" data-for="cpf"></p></div>
+          </div>
+        </section>
+        <section class="rounded-2xl border border-mist bg-white p-6">
+          <h3 class="font-display text-lg font-bold">Forma de pagamento</h3>
+          <div class="mt-4 grid grid-cols-2 gap-2 rounded-xl bg-paper p-1 text-sm font-semibold" role="tablist">
+            <button type="button" id="tabCard" role="tab" class="flex items-center justify-center gap-2 rounded-lg py-2.5"><i data-lucide="credit-card" class="h-4 w-4"></i> Cartão de crédito</button>
+            <button type="button" id="tabPix" role="tab" class="flex items-center justify-center gap-2 rounded-lg py-2.5"><i data-lucide="qr-code" class="h-4 w-4"></i> PIX</button>
+          </div>
+          <div id="panelCard" class="mt-5 space-y-3">
+            <div><label class="lbl" for="cardNum">Número do cartão</label><input id="cardNum" class="inp" inputmode="numeric" autocomplete="cc-number" placeholder="0000 0000 0000 0000"><p class="err" data-for="cardNum"></p></div>
+            <div class="grid grid-cols-2 gap-3">
+              <div><label class="lbl" for="cardExp">Validade</label><input id="cardExp" class="inp" inputmode="numeric" autocomplete="cc-exp" placeholder="MM/AA"><p class="err" data-for="cardExp"></p></div>
+              <div><label class="lbl" for="cardCvv">CVV</label><input id="cardCvv" class="inp" inputmode="numeric" autocomplete="cc-csc" placeholder="123"><p class="err" data-for="cardCvv"></p></div>
+            </div>
+          </div>
+          <div id="panelPix" class="mt-5 hidden text-center">
+            <div id="qr" class="mx-auto inline-block rounded-2xl border border-mist bg-white p-3"></div>
+            <p class="mt-3 text-sm text-ink/60">Abra o app do seu banco, escolha pagar com PIX e aponte a câmera. O QR Code é fictício, só para demonstração.</p>
+            <div class="mx-auto mt-3 flex max-w-sm gap-2"><input id="pixCode" readonly class="inp !py-2 text-xs" value="00020126580014br.gov.bcb.pix0136lumen-demo-0000-0000-0000520400005303986"><button type="button" id="pixCopy" class="rounded-xl border border-mist px-4 text-sm font-semibold hover:border-iris/40">Copiar</button></div>
+          </div>
+        </section>
+      </div>
+      <aside class="lg:col-span-2"><div class="rounded-2xl border border-mist bg-white p-6 lg:sticky lg:top-6">
+        <h3 class="font-display text-lg font-bold">Resumo do pedido</h3>
+        <div class="mt-4 flex items-start gap-3"><span class="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-iris to-violet2 text-white"><i data-lucide="sparkles" class="h-5 w-5"></i></span><div><p id="sumPlan" class="font-semibold"></p><p id="sumPeriod" class="text-sm text-ink/55"></p></div></div>
+        <dl class="mt-5 space-y-2 border-t border-mist pt-4 text-sm">
+          <div class="flex justify-between"><dt class="text-ink/60">Subtotal</dt><dd id="sumSub"></dd></div>
+          <div class="flex justify-between text-emerald-600"><dt id="sumDiscLabel"></dt><dd id="sumDisc"></dd></div>
+          <div class="flex justify-between border-t border-mist pt-3 text-base font-bold"><dt>Total hoje</dt><dd id="sumTotal"></dd></div>
+        </dl>
+        <button id="payBtn" class="btn mt-6 w-full rounded-full bg-iris py-3.5 font-semibold text-white shadow-lg shadow-iris/30 hover:bg-iris-deep disabled:opacity-70"><span id="payLabel">Confirmar e Pagar</span> <span id="payTotal" class="opacity-80"></span></button>
+        <p class="mt-3 flex items-center justify-center gap-1.5 text-xs text-ink/50"><i data-lucide="lock" class="h-3.5 w-3.5"></i> Ambiente de demonstração. Nenhum valor é cobrado.</p>
+      </div></aside>
+    </form>
+  </div>
+</div>
+
+<div id="coOk" class="fixed inset-0 z-[70] hidden place-items-center bg-ink/60 p-5 backdrop-blur-sm" role="alertdialog" aria-modal="true" aria-labelledby="okTitle">
+  <div class="w-full max-w-md rounded-3xl bg-white p-8 text-center shadow-2xl">
+    <span class="mx-auto grid h-16 w-16 place-items-center rounded-full bg-emerald-100 text-emerald-600"><i data-lucide="check" class="h-8 w-8"></i></span>
+    <h3 id="okTitle" class="mt-5 font-display text-2xl font-extrabold">Pagamento Aprovado com Sucesso!</h3>
+    <p class="mt-2 text-ink/60">Enviamos o recibo e o acesso para <strong id="okMail" class="text-ink"></strong>.</p>
+    <p class="mt-4 rounded-xl bg-paper py-2 text-sm text-ink/60">Pedido <strong id="okOrder" class="text-ink"></strong></p>
+    <button id="coDone" class="btn mt-6 w-full rounded-full bg-ink py-3 font-semibold text-white hover:bg-iris">Voltar ao início</button>
+  </div>
+</div>
 
 <script>
   lucide.createIcons();
   document.getElementById('year').textContent = new Date().getFullYear();
 
-  // Menu mobile
-  const menuBtn = document.getElementById('menuBtn'), mobileMenu = document.getElementById('mobileMenu');
-  menuBtn.addEventListener('click', () => {
-    const open = mobileMenu.classList.toggle('hidden') === false;
-    menuBtn.setAttribute('aria-expanded', open);
-  });
-  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { mobileMenu.classList.add('hidden'); menuBtn.setAttribute('aria-expanded', 'false'); }));
-
   // Alternância mensal/anual
   const bM = document.getElementById('btnMonthly'), bY = document.getElementById('btnYearly');
   function setBilling(yearly) {
+    window.isYearly = yearly;
     document.querySelectorAll('.price').forEach(p => p.textContent = yearly ? p.dataset.y : p.dataset.m);
     document.querySelectorAll('.billing-note').forEach(n => n.textContent = yearly ? '· cobrado anualmente' : '· cobrado mensalmente');
     bY.className = 'rounded-full px-5 py-2 transition-colors ' + (yearly ? 'bg-ink text-white' : 'text-ink/60');
@@ -388,15 +392,135 @@ tailwind.config = {
     if (open) { item.classList.add('open'); btn.setAttribute('aria-expanded', 'true'); }
   }));
 
-  // Newsletter
-  document.getElementById('newsletter').addEventListener('submit', e => {
-    e.preventDefault();
-    const input = document.getElementById('email'), msg = document.getElementById('newsMsg');
-    if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value)) {
-      msg.textContent = 'Inscrição feita. Confira seu e-mail para confirmar.'; msg.className = 'mt-2 min-h-5 text-sm text-emerald-600'; input.value = '';
-    } else {
-      msg.textContent = 'Digite um e-mail válido, como voce@empresa.com.'; msg.className = 'mt-2 min-h-5 text-sm text-red-600';
+  
+  // ===== Checkout =====
+  const $ = id => document.getElementById(id);
+  const BRL = n => n.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+  const PLANS = { time: { name: 'Time', m: 49, y: 39 }, empresa: { name: 'Empresa', m: 99, y: 79 } };
+  const digits = v => v.replace(/\D/g, '');
+  let method = 'card';
+
+  function renderSummary(plan) {
+    const p = PLANS[plan], y = !!window.isYearly;
+    const sub = y ? p.m * 12 : p.m, total = y ? p.y * 12 : +(p.m * 0.8).toFixed(2);
+    $('sumPlan').textContent = 'Lumen · plano ' + p.name;
+    $('sumPeriod').textContent = (y ? 'Cobrança anual' : 'Cobrança mensal') + ' · 1 licença';
+    $('sumSub').textContent = BRL(sub);
+    $('sumDiscLabel').textContent = y ? 'Desconto do plano anual' : 'Cupom de lançamento LUMEN20';
+    $('sumDisc').textContent = '− ' + BRL(+(sub - total).toFixed(2));
+    $('sumTotal').textContent = BRL(total);
+    $('payTotal').textContent = '· ' + BRL(total);
+  }
+  function setErr(id, msg) {
+    document.querySelector('[data-for="' + id + '"]').textContent = msg || '';
+    $(id).classList.toggle('bad', !!msg);
+  }
+  function setMethod(m) {
+    method = m;
+    const on = 'bg-white shadow-sm text-ink', off = 'text-ink/55';
+    $('tabCard').className = 'flex items-center justify-center gap-2 rounded-lg py-2.5 ' + (m === 'card' ? on : off);
+    $('tabPix').className = 'flex items-center justify-center gap-2 rounded-lg py-2.5 ' + (m === 'pix' ? on : off);
+    $('tabCard').setAttribute('aria-selected', m === 'card'); $('tabPix').setAttribute('aria-selected', m === 'pix');
+    $('panelCard').classList.toggle('hidden', m !== 'card');
+    $('panelPix').classList.toggle('hidden', m !== 'pix');
+  }
+  function openCheckout(plan) {
+    renderSummary(PLANS[plan] ? plan : 'time');
+    setMethod('card');
+    ['nome', 'email', 'cpf', 'cardNum', 'cardExp', 'cardCvv'].forEach(i => setErr(i, ''));
+    $('checkout').classList.remove('hidden');
+    $('checkout').scrollTop = 0;
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => $('nome').focus(), 50);
+  }
+  function closeCheckout() { $('checkout').classList.add('hidden'); document.body.style.overflow = ''; }
+
+  document.querySelectorAll('[data-checkout]').forEach(el => el.addEventListener('click', e => { e.preventDefault(); openCheckout(el.dataset.plan || 'time'); }));
+  $('coClose').addEventListener('click', closeCheckout);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && $('coOk').classList.contains('hidden')) closeCheckout(); });
+  $('tabCard').addEventListener('click', () => setMethod('card'));
+  $('tabPix').addEventListener('click', () => setMethod('pix'));
+
+  // Máscaras
+  const mask = (id, fn) => $(id).addEventListener('input', e => { e.target.value = fn(digits(e.target.value)); setErr(id, ''); });
+  mask('cpf', d => d.slice(0, 11).replace(/(\d{3})(\d)/, '$1.$2').replace(/(\d{3})(\d)/, '$1.$2').replace(/(\d{3})(\d{1,2})$/, '$1-$2'));
+  mask('cardNum', d => d.slice(0, 16).replace(/(\d{4})(?=\d)/g, '$1 '));
+  mask('cardExp', d => d.slice(0, 4).replace(/(\d{2})(?=\d)/, '$1/'));
+  mask('cardCvv', d => d.slice(0, 4));
+  ['nome', 'email'].forEach(id => $(id).addEventListener('input', () => setErr(id, '')));
+
+  // Validadores
+  function cpfOk(v) {
+    const d = digits(v);
+    if (d.length !== 11 || /^(\d)\1+$/.test(d)) return false;
+    for (let t = 9; t < 11; t++) {
+      let sum = 0;
+      for (let i = 0; i < t; i++) sum += d[i] * (t + 1 - i);
+      if (((sum * 10) % 11) % 10 != d[t]) return false;
     }
+    return true;
+  }
+  function luhn(n) {
+    let sum = 0, alt = false;
+    for (let i = n.length - 1; i >= 0; i--) { let x = +n[i]; if (alt) { x *= 2; if (x > 9) x -= 9; } sum += x; alt = !alt; }
+    return sum % 10 === 0;
+  }
+  function expOk(v) {
+    const d = digits(v); if (d.length !== 4) return false;
+    const mm = +d.slice(0, 2), yy = 2000 + +d.slice(2);
+    return mm >= 1 && mm <= 12 && new Date(yy, mm, 0, 23, 59) >= new Date();
+  }
+  function validate() {
+    const e = {};
+    if ($('nome').value.trim().split(/\s+/).filter(Boolean).length < 2) e.nome = 'Digite nome e sobrenome.';
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test($('email').value)) e.email = 'Digite um e-mail válido, como voce@empresa.com.';
+    if (!cpfOk($('cpf').value)) e.cpf = 'CPF inválido. Confira os 11 dígitos.';
+    if (method === 'card') {
+      const n = digits($('cardNum').value);
+      if (n.length !== 16 || !luhn(n)) e.cardNum = 'Número de cartão inválido.';
+      if (!expOk($('cardExp').value)) e.cardExp = 'Validade inválida ou vencida.';
+      if (digits($('cardCvv').value).length < 3) e.cardCvv = 'CVV com 3 ou 4 dígitos.';
+    }
+    ['nome', 'email', 'cpf', 'cardNum', 'cardExp', 'cardCvv'].forEach(id => setErr(id, e[id]));
+    const first = Object.keys(e)[0];
+    if (first) $(first).focus();
+    return !first;
+  }
+
+  // QR Code fictício
+  (function drawQR() {
+    const n = 25; let seed = 7; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+    let svg = '<svg viewBox="0 0 ' + n + ' ' + n + '" class="h-44 w-44" shape-rendering="crispEdges" role="img" aria-label="QR Code PIX fictício"><rect width="' + n + '" height="' + n + '" fill="#fff"/>';
+    for (let y = 0; y < n; y++) for (let x = 0; x < n; x++) {
+      if ((x < 8 && y < 8) || (x > n - 9 && y < 8) || (x < 8 && y > n - 9)) continue;
+      if (rnd() > 0.52) svg += '<rect x="' + x + '" y="' + y + '" width="1" height="1" fill="#11132A"/>';
+    }
+    [[0, 0], [n - 7, 0], [0, n - 7]].forEach(([x, y]) => {
+      svg += '<rect x="' + x + '" y="' + y + '" width="7" height="7" fill="#11132A"/><rect x="' + (x + 1) + '" y="' + (y + 1) + '" width="5" height="5" fill="#fff"/><rect x="' + (x + 2) + '" y="' + (y + 2) + '" width="3" height="3" fill="#11132A"/>';
+    });
+    $('qr').innerHTML = svg + '</svg>';
+  })();
+  $('pixCopy').addEventListener('click', async () => {
+    try { await navigator.clipboard.writeText($('pixCode').value); } catch (_) { $('pixCode').select(); }
+    $('pixCopy').textContent = 'Copiado'; setTimeout(() => $('pixCopy').textContent = 'Copiar', 1800);
+  });
+
+  // Envio simulado
+  $('coForm').addEventListener('submit', e => {
+    e.preventDefault();
+    if (!validate()) return;
+    $('payBtn').disabled = true; $('payLabel').textContent = 'Processando pagamento...'; $('payTotal').textContent = '';
+    setTimeout(() => {
+      $('okMail').textContent = $('email').value;
+      $('okOrder').textContent = '#LMN-' + Math.floor(100000 + Math.random() * 900000);
+      $('coOk').classList.remove('hidden'); $('coOk').classList.add('grid');
+      $('coDone').focus();
+      $('payBtn').disabled = false; $('payLabel').textContent = 'Confirmar e Pagar';
+    }, 2200);
+  });
+  $('coDone').addEventListener('click', () => {
+    $('coOk').classList.add('hidden'); $('coOk').classList.remove('grid');
+    closeCheckout(); $('coForm').reset(); window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 </script>
 </body>
