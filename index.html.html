@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lumen — Menos reuniões sobre o trabalho. Mais trabalho.</title>
+<meta name="description" content="O Lumen transforma reuniões, mensagens e documentos em tarefas, resumos e decisões. Sem ninguém precisar organizar nada.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: { extend: {
+    fontFamily: { display: ['"Bricolage Grotesque"','system-ui','sans-serif'], sans: ['"Instrument Sans"','system-ui','sans-serif'] },
+    colors: { ink:'#11132A', paper:'#F7F8FC', mist:'#E6E8F2', iris:{ DEFAULT:'#4F46E5', soft:'#EEF0FF', deep:'#3730A3' }, violet2:'#8B5CF6' }
+  } }
+}
+</script>
+<script src="https://cdn.jsdelivr.net/npm/lucide@0.469.0/dist/umd/lucide.min.js"></script>
+<style>
+  body { background:#F7F8FC; color:#11132A; -webkit-font-smoothing:antialiased; }
+  .grain { background-image: radial-gradient(60% 50% at 50% 0%, rgba(99,102,241,.18), transparent 70%), radial-gradient(40% 40% at 90% 10%, rgba(139,92,246,.12), transparent 70%); }
+  .card { background:#fff; border:1px solid #E6E8F2; border-radius:1.5rem; transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease; }
+  .card:hover { transform:translateY(-3px); box-shadow:0 18px 40px -18px rgba(79,70,229,.28); border-color:#C7CBF5; }
+  .btn { transition:transform .15s ease, box-shadow .2s ease, background-color .2s ease; }
+  .btn:hover { transform:translateY(-1px); }
+  .btn:active { transform:translateY(0) scale(.98); }
+  :focus-visible { outline:2px solid #4F46E5; outline-offset:3px; border-radius:.5rem; }
+  .task { opacity:0; transform:translateY(10px); animation:pop .5s cubic-bezier(.2,.8,.2,1) forwards; }
+  @keyframes pop { to { opacity:1; transform:none; } }
+  .caret { animation:blink 1s steps(2) infinite; }
+  @keyframes blink { 50% { opacity:0; } }
+  .faq-body { display:grid; grid-template-rows:0fr; transition:grid-template-rows .3s ease; }
+  .faq-item.open .faq-body { grid-template-rows:1fr; }
+  .faq-item.open .faq-icon { transform:rotate(45deg); }
+  .faq-icon { transition:transform .25s ease; }
+  @media (prefers-reduced-motion: reduce) {
+    .task { animation:none; opacity:1; transform:none; }
+    .caret { animation:none; }
+    *, *::before, *::after { transition-duration:.01ms !important; }
+  }
+</style>
+</head>
+<body class="font-sans antialiased">
+
+<!-- NAV -->
+<header class="sticky top-0 z-50 border-b border-mist/70 bg-paper/80 backdrop-blur-xl">
+  <nav class="mx-auto flex h-16 max-w-6xl items-center justify-between px-5" aria-label="Principal">
+    <a href="#" class="flex items-center gap-2 font-display text-xl font-bold tracking-tight">
+      <span class="grid h-8 w-8 place-items-center rounded-xl bg-gradient-to-br from-iris to-violet2 text-white"><i data-lucide="sparkles" class="h-4 w-4"></i></span>
+      Lumen
+    </a>
+    <ul class="hidden items-center gap-8 text-sm font-medium text-ink/70 md:flex">
+      <li><a class="hover:text-ink transition-colors" href="#recursos">Recursos</a></li>
+      <li><a class="hover:text-ink transition-colors" href="#como-funciona">Como funciona</a></li>
+      <li><a class="hover:text-ink transition-colors" href="#precos">Preços</a></li>
+      <li><a class="hover:text-ink transition-colors" href="#depoimentos">Clientes</a></li>
+      <li><a class="hover:text-ink transition-colors" href="#faq">FAQ</a></li>
+    </ul>
+    <div class="flex items-center gap-3">
+      <a href="#precos" class="btn hidden rounded-full bg-ink px-5 py-2 text-sm font-semibold text-white hover:bg-iris sm:inline-block">Começar grátis</a>
+      <button id="menuBtn" class="grid h-10 w-10 place-items-center rounded-xl border border-mist bg-white md:hidden" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobileMenu"><i data-lucide="menu" class="h-5 w-5"></i></button>
+    </div>
+  </nav>
+  <div id="mobileMenu" class="hidden border-t border-mist bg-paper px-5 pb-5 md:hidden">
+    <ul class="flex flex-col py-2 text-base font-medium">
+      <li><a class="block py-3" href="#recursos">Recursos</a></li>
+      <li><a class="block py-3" href="#como-funciona">Como funciona</a></li>
+      <li><a class="block py-3" href="#precos">Preços</a></li>
+      <li><a class="block py-3" href="#depoimentos">Clientes</a></li>
+      <li><a class="block py-3" href="#faq">FAQ</a></li>
+    </ul>
+    <a href="#precos" class="btn block rounded-full bg-ink px-5 py-3 text-center text-sm font-semibold text-white">Começar grátis</a>
+  </div>
+</header>
+
+<main>
+<!-- HERO -->
+<section class="grain overflow-hidden">
+  <div class="mx-auto max-w-6xl px-5 pb-20 pt-16 text-center sm:pt-24">
+    <a href="#recursos" class="inline-flex items-center gap-2 rounded-full border border-mist bg-white px-4 py-1.5 text-sm text-ink/70 shadow-sm">
+      <span class="h-2 w-2 rounded-full bg-emerald-500"></span> Novo: resumos de reunião em tempo real
+    </a>
+    <h1 class="mx-auto mt-7 max-w-3xl font-display text-5xl font-extrabold leading-[1.02] tracking-tight sm:text-7xl">Menos reuniões sobre o trabalho. Mais trabalho.</h1>
+    <p class="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-ink/65">O Lumen transforma reuniões, mensagens e documentos em tarefas, resumos e decisões. Ninguém precisa anotar nada.</p>
+    <div class="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
+      <a href="#precos" class="btn w-full rounded-full bg-iris px-7 py-3.5 text-base font-semibold text-white shadow-lg shadow-iris/30 hover:bg-iris-deep sm:w-auto">Começar grátis</a>
+      <a href="#como-funciona" class="btn inline-flex w-full items-center justify-center gap-2 rounded-full border border-mist bg-white px-7 py-3.5 text-base font-semibold hover:border-iris/40 sm:w-auto"><i data-lucide="play-circle" class="h-5 w-5 text-iris"></i> Ver como funciona</a>
+    </div>
+    <p class="mt-4 text-sm text-ink/50">Sem cartão de crédito. Pronto em 2 minutos.</p>
+
+    <!-- Mockup -->
+    <div class="relative mx-auto mt-16 max-w-4xl text-left">
+      <div class="absolute -inset-4 -z-10 rounded-[2.5rem] bg-gradient-to-br from-iris/20 via-violet2/10 to-transparent blur-2xl"></div>
+      <div class="overflow-hidden rounded-3xl border border-mist bg-white shadow-[0_30px_80px_-30px_rgba(17,19,42,.35)]">
+        <div class="flex items-center gap-2 border-b border-mist bg-paper px-4 py-3">
+          <span class="h-3 w-3 rounded-full bg-red-300"></span><span class="h-3 w-3 rounded-full bg-amber-300"></span><span class="h-3 w-3 rounded-full bg-emerald-300"></span>
+          <span class="ml-3 text-xs text-ink/50">Reunião de lançamento · Quinta, 10h</span>
+          <span class="ml-auto inline-flex items-center gap-1.5 rounded-full bg-red-50 px-2.5 py-1 text-xs font-medium text-red-600"><span class="h-1.5 w-1.5 rounded-full bg-red-500"></span> Gravando</span>
+        </div>
+        <div class="grid md:grid-cols-5">
+          <div class="space-y-4 border-b border-mist p-6 md:col-span-3 md:border-b-0 md:border-r">
+            <p class="text-sm text-ink/45">Transcrição ao vivo</p>
+            <div class="flex gap-3"><span class="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-iris-soft text-xs font-semibold text-iris">MC</span><p class="text-sm leading-relaxed text-ink/80">Precisamos fechar o novo onboarding até sexta e alinhar o preço com o time comercial.</p></div>
+            <div class="flex gap-3"><span class="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-amber-100 text-xs font-semibold text-amber-700">RS</span><p class="text-sm leading-relaxed text-ink/80">Eu cuido do onboarding. A Júlia pode revisar os textos de preço na quarta.</p></div>
+            <div class="flex gap-3"><span class="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-emerald-100 text-xs font-semibold text-emerald-700">JA</span><p class="text-sm leading-relaxed text-ink/80">Fechado. Marco a revisão final com o jurídico<span class="caret ml-0.5 inline-block h-4 w-0.5 translate-y-0.5 bg-iris"></span></p></div>
+          </div>
+          <div class="space-y-3 bg-paper/60 p-6 md:col-span-2">
+            <p class="flex items-center gap-2 text-sm font-semibold text-iris"><i data-lucide="sparkles" class="h-4 w-4"></i> Lumen identificou</p>
+            <div class="task rounded-2xl border border-mist bg-white p-3.5 shadow-sm" style="animation-delay:.6s"><p class="text-sm font-medium">Finalizar novo onboarding</p><p class="mt-1 text-xs text-ink/50">Rafael S. · até sexta</p></div>
+            <div class="task rounded-2xl border border-mist bg-white p-3.5 shadow-sm" style="animation-delay:1.4s"><p class="text-sm font-medium">Revisar textos de preço</p><p class="mt-1 text-xs text-ink/50">Júlia A. · quarta</p></div>
+            <div class="task rounded-2xl border border-mist bg-white p-3.5 shadow-sm" style="animation-delay:2.2s"><p class="text-sm font-medium">Agendar revisão com o jurídico</p><p class="mt-1 text-xs text-ink/50">Júlia A. · sem prazo</p></div>
+            <div class="task rounded-2xl border border-iris/30 bg-iris-soft p-3.5" style="animation-delay:3s"><p class="flex items-center gap-2 text-sm font-medium text-iris-deep"><i data-lucide="check-circle-2" class="h-4 w-4"></i> Resumo enviado ao canal #lancamento</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOCIAL PROOF -->
+<section class="border-y border-mist bg-white">
+  <div class="mx-auto max-w-6xl px-5 py-14">
+    <p class="text-center text-sm text-ink/50">Times de mais de 2.400 empresas decidem mais rápido com o Lumen</p>
+    <div class="mt-8 flex flex-wrap items-center justify-center gap-x-12 gap-y-5 font-display text-xl font-bold text-ink/35">
+      <span>Northwind</span><span>Orbitaly</span><span>Vertex&amp;Co</span><span>Kairos</span><span>Plenum</span><span>Nimbus</span>
+    </div>
+    <dl class="mt-12 grid grid-cols-2 gap-8 text-center md:grid-cols-4">
+      <div><dt class="text-sm text-ink/55">Usuários ativos</dt><dd class="mt-1 font-display text-4xl font-extrabold">+50 mil</dd></div>
+      <div><dt class="text-sm text-ink/55">Horas devolvidas por semana</dt><dd class="mt-1 font-display text-4xl font-extrabold">6,4 h</dd></div>
+      <div><dt class="text-sm text-ink/55">Tarefas criadas por mês</dt><dd class="mt-1 font-display text-4xl font-extrabold">3,2 mi</dd></div>
+      <div><dt class="text-sm text-ink/55">Nota média nas lojas</dt><dd class="mt-1 font-display text-4xl font-extrabold">4,9/5</dd></div>
+    </dl>
+  </div>
+</section>
+
+<!-- FEATURES BENTO -->
+<section id="recursos" class="mx-auto max-w-6xl scroll-mt-20 px-5 py-24">
+  <div class="max-w-2xl">
+    <h2 class="font-display text-4xl font-extrabold tracking-tight sm:text-5xl">Tudo o que sai da conversa vira ação</h2>
+    <p class="mt-4 text-lg text-ink/60">Quatro recursos que trabalham juntos para que nenhuma decisão se perca.</p>
+  </div>
+  <div class="mt-12 grid gap-5 md:grid-cols-6">
+    <article class="card relative overflow-hidden p-8 md:col-span-4">
+      <span class="grid h-11 w-11 place-items-center rounded-2xl bg-iris-soft text-iris"><i data-lucide="mic" class="h-5 w-5"></i></span>
+      <h3 class="mt-5 font-display text-2xl font-bold">Resumos que ninguém precisa escrever</h3>
+      <p class="mt-2 max-w-md text-ink/60">O Lumen entra na reunião, separa decisões de opiniões e entrega um resumo claro em menos de um minuto, em 32 idiomas.</p>
+      <div class="mt-6 flex flex-wrap gap-2 text-sm">
+        <span class="rounded-full bg-paper px-3 py-1 text-ink/70">Decisões</span><span class="rounded-full bg-paper px-3 py-1 text-ink/70">Responsáveis</span><span class="rounded-full bg-paper px-3 py-1 text-ink/70">Prazos</span><span class="rounded-full bg-paper px-3 py-1 text-ink/70">Riscos</span>
+      </div>
+    </article>
+    <article class="card bg-gradient-to-br from-iris to-violet2 p-8 text-white md:col-span-2" style="background-image:linear-gradient(135deg,#4F46E5,#8B5CF6)">
+      <span class="grid h-11 w-11 place-items-center rounded-2xl bg-white/20"><i data-lucide="list-checks" class="h-5 w-5"></i></span>
+      <h3 class="mt-5 font-display text-2xl font-bold">Tarefas automáticas</h3>
+      <p class="mt-2 text-white/85">Cada compromisso vira uma tarefa com dono e prazo, direto no Jira, Notion ou Linear.</p>
+    </article>
+    <article class="card p-8 md:col-span-2">
+      <span class="grid h-11 w-11 place-items-center rounded-2xl bg-iris-soft text-iris"><i data-lucide="search" class="h-5 w-5"></i></span>
+      <h3 class="mt-5 font-display text-2xl font-bold">Pergunte ao histórico</h3>
+      <p class="mt-2 text-ink/60">"Por que adiamos o lançamento?" O Lumen responde com a fonte e o trecho exato.</p>
+    </article>
+    <article class="card p-8 md:col-span-4">
+      <div class="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
+        <div class="max-w-sm">
+          <span class="grid h-11 w-11 place-items-center rounded-2xl bg-iris-soft text-iris"><i data-lucide="plug-zap" class="h-5 w-5"></i></span>
+          <h3 class="mt-5 font-display text-2xl font-bold">Conecta com o que você já usa</h3>
+          <p class="mt-2 text-ink/60">Slack, Google Meet, Zoom, Teams, Notion e mais de 40 integrações, sem configuração complicada.</p>
+        </div>
+        <div class="grid grid-cols-3 gap-3 text-xs font-medium text-ink/60">
+          <span class="grid h-16 w-20 place-items-center rounded-2xl border border-mist bg-paper">Slack</span>
+          <span class="grid h-16 w-20 place-items-center rounded-2xl border border-mist bg-paper">Zoom</span>
+          <span class="grid h-16 w-20 place-items-center rounded-2xl border border-mist bg-paper">Notion</span>
+          <span class="grid h-16 w-20 place-items-center rounded-2xl border border-mist bg-paper">Teams</span>
+          <span class="grid h-16 w-20 place-items-center rounded-2xl border border-mist bg-paper">Jira</span>
+          <span class="grid h-16 w-20 place-items-center rounded-2xl border border-mist bg-paper">Linear</span>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="como-funciona" class="scroll-mt-20 border-y border-mist bg-white">
+  <div class="mx-auto max-w-6xl px-5 py-24">
+    <div class="mx-auto max-w-2xl text-center">
+      <h2 class="font-display text-4xl font-extrabold tracking-tight sm:text-5xl">Três passos. Nenhum treinamento.</h2>
+      <p class="mt-4 text-lg text-ink/60">Do cadastro ao primeiro resumo em menos tempo do que uma reunião de alinhamento.</p>
+    </div>
+    <ol class="relative mt-14 grid gap-6 md:grid-cols-3">
+      <li class="rounded-3xl bg-paper p-8">
+        <span class="grid h-10 w-10 place-items-center rounded-full bg-ink font-display text-lg font-bold text-white">1</span>
+        <h3 class="mt-5 font-display text-xl font-bold">Conecte seu calendário</h3>
+        <p class="mt-2 text-ink/60">Autorize Google ou Outlook. O Lumen entra sozinho nas reuniões que você escolher.</p>
+      </li>
+      <li class="rounded-3xl bg-paper p-8">
+        <span class="grid h-10 w-10 place-items-center rounded-full bg-ink font-display text-lg font-bold text-white">2</span>
+        <h3 class="mt-5 font-display text-xl font-bold">Converse normalmente</h3>
+        <p class="mt-2 text-ink/60">Ele escuta, entende o contexto e separa o que foi decidido do que ainda está em aberto.</p>
+      </li>
+      <li class="rounded-3xl bg-paper p-8">
+        <span class="grid h-10 w-10 place-items-center rounded-full bg-iris font-display text-lg font-bold text-white">3</span>
+        <h3 class="mt-5 font-display text-xl font-bold">Receba tudo pronto</h3>
+        <p class="mt-2 text-ink/60">Resumo no canal, tarefas nas ferramentas do time e lembretes antes de cada prazo.</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="precos" class="mx-auto max-w-6xl scroll-mt-20 px-5 py-24">
+  <div class="mx-auto max-w-2xl text-center">
+    <h2 class="font-display text-4xl font-extrabold tracking-tight sm:text-5xl">Preço simples, por pessoa</h2>
+    <p class="mt-4 text-lg text-ink/60">Comece grátis e evolua quando o time pedir mais.</p>
+    <div class="mt-8 inline-flex rounded-full border border-mist bg-white p-1 text-sm font-semibold" role="group" aria-label="Período de cobrança">
+      <button id="btnMonthly" class="rounded-full bg-ink px-5 py-2 text-white transition-colors" aria-pressed="true">Mensal</button>
+      <button id="btnYearly" class="rounded-full px-5 py-2 text-ink/60 transition-colors" aria-pressed="false">Anual <span class="ml-1 rounded-full bg-emerald-100 px-2 py-0.5 text-xs text-emerald-700">-20%</span></button>
+    </div>
+  </div>
+  <div class="mt-12 grid items-stretch gap-5 md:grid-cols-3">
+    <article class="card flex flex-col p-8">
+      <h3 class="font-display text-xl font-bold">Essencial</h3>
+      <p class="mt-1 text-sm text-ink/55">Para quem quer testar sozinho.</p>
+      <p class="mt-6 font-display text-5xl font-extrabold">R$ 0</p>
+      <p class="text-sm text-ink/50">para sempre</p>
+      <ul class="mt-6 flex-1 space-y-3 text-sm text-ink/75">
+        <li class="flex gap-2"><i data-lucide="check" class="mt-0.5 h-4 w-4 shrink-0 text-iris"></i> 5 reuniões resumidas por mês</li>
+        <li class="flex gap-2"><i data-lucide="check" class="mt-0.5 h-4 w-4 shrink-0 text-iris"></i> Tarefas e lembretes básicos</li>
+        <li class="flex gap-2"><i data-lucide="check" class="mt-0.5 h-4 w-4 shrink-0 text-iris"></i> 2 integrações</li>
+      </ul>
+      <a href="#" class="btn mt-8 rounded-full border border-mist py-3 text-center text-sm font-semibold hover:border-iris/40">Começar grátis</a>
+    </article>
+    <article class="relative flex flex-col rounded-3xl bg-ink p-8 text-white shadow-2xl shadow-iris/25 md:-my-4 md:py-12" style="background-image:radial-gradient(80% 50% at 50% 0%,rgba(99,102,241,.45),transparent 70%)">
+      <span class="absolute right-6 top-6 rounded-full bg-white/15 px-3 py-1 text-xs font-semibold">Mais popular</span>
+      <h3 class="font-display text-xl font-bold">Time</h3>
+      <p class="mt-1 text-sm text-white/60">Para equipes que vivem em reunião.</p>
+      <p class="mt-6 font-display text-5xl font-extrabold">R$ <span class="price" data-m="49" data-y="39">49</span></p>
+      <p class="text-sm text-white/55">por pessoa/mês <span class="billing-note">· cobrado mensalmente</span></p>
+      <ul class="mt-6 flex-1 space-y-3 text-sm text-white/85">
+        <li class="flex gap-2"><i data-lucide="check" class="mt-0.5 h-4 w-4 shrink-0 text-violet2"></i> Reuniões ilimitadas</li>
+        <li class="flex gap-2"><i data-lucide="check" class="mt-0.5 h-4 w-4 shrink-0 text-violet2"></i> Pergunte ao histórico</li>
+        <li class="flex gap-2"><i data-lucide="check" class="mt-0.5 h-4 w-4 shrink-0 text-violet2"></i> Mais de 40 integrações</li>
+        <li class="flex gap-2"><i data-lucide="check" class="mt-0.5 h-4 w-4 shrink-0 text-violet2"></i> Suporte por chat em 4 horas</li>
+      </ul>
+      <a href="#" class="btn mt-8 rounded-full bg-white py-3 text-center text-sm font-semibold text-ink hover:bg-iris-soft">Testar 14 dias grátis</a>
+    </article>
+    <article class="card flex flex-col p-8">
+      <h3 class="font-display text-xl font-bold">Empresa</h3>
+      <p class="mt-1 text-sm text-ink/55">Para operações com exigências de segurança.</p>
+      <p class="mt-6 font-display text-5xl font-extrabold">R$ <span class="price" data-m="99" data-y="79">99</span></p>
+      <p class="text-sm text-ink/50">por pessoa/mês <span class="billing-note">· cobrado mensalmente</span></p>
+      <ul class="mt-6 flex-1 space-y-3 text-sm text-ink/75">
+        <li class="flex gap-2"><i data-lucide="check" class="mt-0.5 h-4 w-4 shrink-0 text-iris"></i> Tudo do plano Time</li>
+        <li class="flex gap-2"><i data-lucide="check" class="mt-0.5 h-4 w-4 shrink-0 text-iris"></i> SSO e controle de acesso</li>
+        <li class="flex gap-2"><i data-lucide="check" class="mt-0.5 h-4 w-4 shrink-0 text-iris"></i> Dados armazenados no Brasil</li>
+        <li class="flex gap-2"><i data-lucide="check" class="mt-0.5 h-4 w-4 shrink-0 text-iris"></i> Gerente de conta dedicado</li>
+      </ul>
+      <a href="#" class="btn mt-8 rounded-full border border-mist py-3 text-center text-sm font-semibold hover:border-iris/40">Falar com vendas</a>
+    </article>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="depoimentos" class="scroll-mt-20 border-y border-mist bg-white">
+  <div class="mx-auto max-w-6xl px-5 py-24">
+    <h2 class="max-w-2xl font-display text-4xl font-extrabold tracking-tight sm:text-5xl">Quem usa, não volta para o caderno</h2>
+    <div class="mt-12 grid gap-5 md:grid-cols-3">
+      <figure class="card flex flex-col p-8">
+        <div class="flex gap-0.5 text-amber-400" aria-label="5 de 5 estrelas"><i data-lucide="star" class="h-4 w-4 fill-current"></i><i data-lucide="star" class="h-4 w-4 fill-current"></i><i data-lucide="star" class="h-4 w-4 fill-current"></i><i data-lucide="star" class="h-4 w-4 fill-current"></i><i data-lucide="star" class="h-4 w-4 fill-current"></i></div>
+        <blockquote class="mt-4 flex-1 leading-relaxed text-ink/80">"Cortamos nossas reuniões semanais de alinhamento pela metade. O resumo chega antes de eu fechar a aba."</blockquote>
+        <figcaption class="mt-6 flex items-center gap-3"><span class="grid h-11 w-11 place-items-center rounded-full bg-gradient-to-br from-iris to-violet2 text-sm font-semibold text-white">CM</span><span><span class="block text-sm font-semibold">Carolina Mendes</span><span class="block text-sm text-ink/50">Head de Produto, Northwind</span></span></figcaption>
+      </figure>
+      <figure class="card flex flex-col p-8">
+        <div class="flex gap-0.5 text-amber-400" aria-label="5 de 5 estrelas"><i data-lucide="star" class="h-4 w-4 fill-current"></i><i data-lucide="star" class="h-4 w-4 fill-current"></i><i data-lucide="star" class="h-4 w-4 fill-current"></i><i data-lucide="star" class="h-4 w-4 fill-current"></i><i data-lucide="star" class="h-4 w-4 fill-current"></i></div>
+        <blockquote class="mt-4 flex-1 leading-relaxed text-ink/80">"A função de perguntar ao histórico resolveu discussões de 'quem ficou de fazer isso?' que duravam dias."</blockquote>
+        <figcaption class="mt-6 flex items-center gap-3"><span class="grid h-11 w-11 place-items-center rounded-full bg-gradient-to-br from-emerald-500 to-teal-400 text-sm font-semibold text-white">TR</span><span><span class="block text-sm font-semibold">Thiago Ribeiro</span><span class="block text-sm text-ink/50">CTO, Orbitaly</span></span></figcaption>
+      </figure>
+      <figure class="card flex flex-col p-8">
+        <div class="flex gap-0.5 text-amber-400" aria-label="5 de 5 estrelas"><i data-lucide="star" class="h-4 w-4 fill-current"></i><i data-lucide="star" class="h-4 w-4 fill-current"></i><i data-lucide="star" class="h-4 w-4 fill-current"></i><i data-lucide="star" class="h-4 w-4 fill-current"></i><i data-lucide="star" class="h-4 w-4 fill-current"></i></div>
+        <blockquote class="mt-4 flex-1 leading-relaxed text-ink/80">"Implantamos em 40 pessoas num dia. Segurança aprovou rápido e o time adotou sem ninguém pedir."</blockquote>
+        <figcaption class="mt-6 flex items-center gap-3"><span class="grid h-11 w-11 place-items-center rounded-full bg-gradient-to-br from-amber-500 to-rose-400 text-sm font-semibold text-white">BL</span><span><span class="block text-sm font-semibold">Beatriz Lopes</span><span class="block text-sm text-ink/50">Diretora de Operações, Kairos</span></span></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" class="mx-auto max-w-3xl scroll-mt-20 px-5 py-24">
+  <h2 class="text-center font-display text-4xl font-extrabold tracking-tight sm:text-5xl">Perguntas frequentes</h2>
+  <div class="mt-12 space-y-3">
+    <div class="faq-item card !rounded-2xl">
+      <button class="faq-btn flex w-full items-center justify-between gap-4 p-6 text-left font-semibold" aria-expanded="false">O Lumen grava as reuniões?<i data-lucide="plus" class="faq-icon h-5 w-5 shrink-0 text-iris"></i></button>
+      <div class="faq-body"><div class="overflow-hidden"><p class="px-6 pb-6 text-ink/65">Só transcreve e resume. O áudio é descartado após o processamento, e todos os participantes são avisados quando o Lumen entra na chamada.</p></div></div>
+    </div>
+    <div class="faq-item card !rounded-2xl">
+      <button class="faq-btn flex w-full items-center justify-between gap-4 p-6 text-left font-semibold" aria-expanded="false">Funciona em português?<i data-lucide="plus" class="faq-icon h-5 w-5 shrink-0 text-iris"></i></button>
+      <div class="faq-body"><div class="overflow-hidden"><p class="px-6 pb-6 text-ink/65">Sim. Entende português do Brasil, incluindo sotaques regionais e termos técnicos, além de outros 31 idiomas. Reuniões mistas também são suportadas.</p></div></div>
+    </div>
+    <div class="faq-item card !rounded-2xl">
+      <button class="faq-btn flex w-full items-center justify-between gap-4 p-6 text-left font-semibold" aria-expanded="false">Meus dados são usados para treinar modelos?<i data-lucide="plus" class="faq-icon h-5 w-5 shrink-0 text-iris"></i></button>
+      <div class="faq-body"><div class="overflow-hidden"><p class="px-6 pb-6 text-ink/65">Não. Seus dados são criptografados, ficam isolados por empresa e nunca são usados para treinar modelos. Você pode excluir tudo a qualquer momento.</p></div></div>
+    </div>
+    <div class="faq-item card !rounded-2xl">
+      <button class="faq-btn flex w-full items-center justify-between gap-4 p-6 text-left font-semibold" aria-expanded="false">Posso cancelar quando quiser?<i data-lucide="plus" class="faq-icon h-5 w-5 shrink-0 text-iris"></i></button>
+      <div class="faq-body"><div class="overflow-hidden"><p class="px-6 pb-6 text-ink/65">Pode. Nos planos mensais, o cancelamento vale a partir do próximo ciclo. Nos anuais, devolvemos o valor proporcional em até 30 dias.</p></div></div>
+    </div>
+    <div class="faq-item card !rounded-2xl">
+      <button class="faq-btn flex w-full items-center justify-between gap-4 p-6 text-left font-semibold" aria-expanded="false">Como funciona o teste de 14 dias?<i data-lucide="plus" class="faq-icon h-5 w-5 shrink-0 text-iris"></i></button>
+      <div class="faq-body"><div class="overflow-hidden"><p class="px-6 pb-6 text-ink/65">Você usa o plano Time completo sem informar cartão. Ao fim do período, escolhe um plano ou continua no Essencial, sem perder nada.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="px-5 pb-24">
+  <div class="relative mx-auto max-w-6xl overflow-hidden rounded-[2rem] bg-ink px-6 py-20 text-center text-white" style="background-image:radial-gradient(60% 80% at 20% 0%,rgba(99,102,241,.55),transparent 70%),radial-gradient(50% 70% at 90% 100%,rgba(139,92,246,.45),transparent 70%)">
+    <h2 class="mx-auto max-w-2xl font-display text-4xl font-extrabold leading-tight tracking-tight sm:text-5xl">Sua próxima reunião pode terminar com tudo anotado</h2>
+    <p class="mx-auto mt-4 max-w-lg text-white/70">Conecte seu calendário e veja o primeiro resumo ainda hoje.</p>
+    <div class="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
+      <a href="#precos" class="btn w-full rounded-full bg-white px-8 py-3.5 font-semibold text-ink hover:bg-iris-soft sm:w-auto">Começar grátis</a>
+      <a href="#faq" class="btn w-full rounded-full border border-white/25 px-8 py-3.5 font-semibold hover:bg-white/10 sm:w-auto">Tirar dúvidas</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- FOOTER -->
+<footer class="border-t border-mist bg-white">
+  <div class="mx-auto max-w-6xl px-5 py-16">
+    <div class="grid gap-12 lg:grid-cols-6">
+      <div class="lg:col-span-2">
+        <a href="#" class="flex items-center gap-2 font-display text-xl font-bold"><span class="grid h-8 w-8 place-items-center rounded-xl bg-gradient-to-br from-iris to-violet2 text-white"><i data-lucide="sparkles" class="h-4 w-4"></i></span>Lumen</a>
+        <p class="mt-4 max-w-xs text-sm text-ink/60">Receba dicas de produtividade para times, uma vez por mês.</p>
+        <form id="newsletter" class="mt-5 flex max-w-sm gap-2" novalidate>
+          <label for="email" class="sr-only">Seu e-mail</label>
+          <input id="email" type="email" required placeholder="voce@empresa.com" class="min-w-0 flex-1 rounded-full border border-mist bg-paper px-4 py-2.5 text-sm placeholder:text-ink/40 focus:border-iris focus:outline-none">
+          <button class="btn rounded-full bg-ink px-5 py-2.5 text-sm font-semibold text-white hover:bg-iris">Assinar</button>
+        </form>
+        <p id="newsMsg" class="mt-2 min-h-5 text-sm" role="status"></p>
+      </div>
+      <nav class="grid grid-cols-2 gap-8 text-sm sm:grid-cols-3 lg:col-span-4" aria-label="Rodapé">
+        <div><h3 class="font-semibold">Produto</h3><ul class="mt-4 space-y-3 text-ink/60"><li><a class="hover:text-ink" href="#recursos">Recursos</a></li><li><a class="hover:text-ink" href="#precos">Preços</a></li><li><a class="hover:text-ink" href="#">Integrações</a></li><li><a class="hover:text-ink" href="#">Novidades</a></li></ul></div>
+        <div><h3 class="font-semibold">Empresa</h3><ul class="mt-4 space-y-3 text-ink/60"><li><a class="hover:text-ink" href="#">Sobre nós</a></li><li><a class="hover:text-ink" href="#">Carreiras</a></li><li><a class="hover:text-ink" href="#">Blog</a></li><li><a class="hover:text-ink" href="#">Contato</a></li></ul></div>
+        <div><h3 class="font-semibold">Legal</h3><ul class="mt-4 space-y-3 text-ink/60"><li><a class="hover:text-ink" href="#">Privacidade</a></li><li><a class="hover:text-ink" href="#">Termos de uso</a></li><li><a class="hover:text-ink" href="#">Segurança</a></li><li><a class="hover:text-ink" href="#">LGPD</a></li></ul></div>
+      </nav>
+    </div>
+    <div class="mt-14 flex flex-col items-center justify-between gap-4 border-t border-mist pt-8 text-sm text-ink/50 sm:flex-row">
+      <p>© <span id="year">2026</span> Lumen Tecnologia Ltda. Todos os direitos reservados.</p>
+      <div class="flex gap-4">
+        <a href="#" aria-label="LinkedIn" class="hover:text-iris"><i data-lucide="linkedin" class="h-5 w-5"></i></a>
+        <a href="#" aria-label="Twitter" class="hover:text-iris"><i data-lucide="twitter" class="h-5 w-5"></i></a>
+        <a href="#" aria-label="GitHub" class="hover:text-iris"><i data-lucide="github" class="h-5 w-5"></i></a>
+        <a href="#" aria-label="YouTube" class="hover:text-iris"><i data-lucide="youtube" class="h-5 w-5"></i></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  lucide.createIcons();
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Menu mobile
+  const menuBtn = document.getElementById('menuBtn'), mobileMenu = document.getElementById('mobileMenu');
+  menuBtn.addEventListener('click', () => {
+    const open = mobileMenu.classList.toggle('hidden') === false;
+    menuBtn.setAttribute('aria-expanded', open);
+  });
+  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { mobileMenu.classList.add('hidden'); menuBtn.setAttribute('aria-expanded', 'false'); }));
+
+  // Alternância mensal/anual
+  const bM = document.getElementById('btnMonthly'), bY = document.getElementById('btnYearly');
+  function setBilling(yearly) {
+    document.querySelectorAll('.price').forEach(p => p.textContent = yearly ? p.dataset.y : p.dataset.m);
+    document.querySelectorAll('.billing-note').forEach(n => n.textContent = yearly ? '· cobrado anualmente' : '· cobrado mensalmente');
+    bY.className = 'rounded-full px-5 py-2 transition-colors ' + (yearly ? 'bg-ink text-white' : 'text-ink/60');
+    bM.className = 'rounded-full px-5 py-2 transition-colors ' + (yearly ? 'text-ink/60' : 'bg-ink text-white');
+    bY.setAttribute('aria-pressed', yearly); bM.setAttribute('aria-pressed', !yearly);
+  }
+  bM.addEventListener('click', () => setBilling(false));
+  bY.addEventListener('click', () => setBilling(true));
+
+  // FAQ sanfona
+  document.querySelectorAll('.faq-btn').forEach(btn => btn.addEventListener('click', () => {
+    const item = btn.closest('.faq-item');
+    const open = !item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(i => { i.classList.remove('open'); i.querySelector('.faq-btn').setAttribute('aria-expanded', 'false'); });
+    if (open) { item.classList.add('open'); btn.setAttribute('aria-expanded', 'true'); }
+  }));
+
+  // Newsletter
+  document.getElementById('newsletter').addEventListener('submit', e => {
+    e.preventDefault();
+    const input = document.getElementById('email'), msg = document.getElementById('newsMsg');
+    if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value)) {
+      msg.textContent = 'Inscrição feita. Confira seu e-mail para confirmar.'; msg.className = 'mt-2 min-h-5 text-sm text-emerald-600'; input.value = '';
+    } else {
+      msg.textContent = 'Digite um e-mail válido, como voce@empresa.com.'; msg.className = 'mt-2 min-h-5 text-sm text-red-600';
+    }
+  });
+</script>
+</body>
+</html>
